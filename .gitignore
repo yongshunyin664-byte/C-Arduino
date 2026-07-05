@@ -1,0 +1,12 @@
+# Arduino 编译产物
+build/
+*.o
+*.elf
+*.hex
+*.bin
+
+# 系统垃圾文件
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
