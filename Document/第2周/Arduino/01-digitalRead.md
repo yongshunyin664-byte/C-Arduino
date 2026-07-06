@@ -3,18 +3,23 @@
 `digitalRead(pin)` 用于读取数字引脚的电平，返回 `HIGH` 或 `LOW`。通常按钮连接到输入引脚。
 
 ```c
-int buttonPin = 2;
+int buttonPin = 2;               // 定义全局整型变量 buttonPin，赋值为 2（按钮接在 2 号数字引脚）
+                                 // 用变量代替硬编码数字，后面改引脚只需改这一行
 
-void setup() {
-  pinMode(buttonPin, INPUT);
-}
+void setup() {                   // setup() 上电/复位后只执行 1 次，专门做初始化
+  pinMode(buttonPin, INPUT);     // pinMode(引脚, 模式)：设置 2 号引脚为 INPUT 输入模式
+                                 // INPUT 模式用于读取外部信号（按钮、传感器等）
+}                                // 注意：INPUT 模式下引脚处于高阻态，建议外接下拉/上拉电阻
 
-void loop() {
-  int state = digitalRead(buttonPin);
-  if (state == HIGH) {
-    // 按钮被按下
-  }
-}
+void loop() {                    // loop() 无限循环反复执行，是程序主体
+  int state = digitalRead(buttonPin); // digitalRead(引脚)：读取 2 号引脚的电平状态
+                                      // 返回 HIGH（高电平，约 5V）或 LOW（低电平，约 0V）
+                                      // 存入局部变量 state，类型是 int
+  if (state == HIGH) {           // 判断 state 是否等于 HIGH（按钮按下时读到高电平）
+                                 // == 是相等比较运算符，= 是赋值运算符，二者不要混淆
+    // 按钮被按下                  // 条件成立时执行这里的代码（例如点亮 LED、发送串口消息等）
+  }                              // if 语句块结束
+}                                // loop() 结束，回到开头继续循环
 ```
 
 ## 使用注意

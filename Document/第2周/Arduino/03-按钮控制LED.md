@@ -3,22 +3,26 @@
 按钮按下时点亮 LED，松开时熄灭。
 
 ```c
-int buttonPin = 2;
-int ledPin = 13;
+int buttonPin = 2;               // 定义全局变量 buttonPin，按钮接在 2 号数字引脚
+int ledPin = 13;                 // 定义全局变量 ledPin，LED 接在 13 号数字引脚
+                                 // 全局变量：setup() 和 loop() 都能直接使用
 
-void setup() {
-  pinMode(buttonPin, INPUT);
-  pinMode(ledPin, OUTPUT);
+void setup() {                   // setup() 上电/复位后只执行 1 次，专门做初始化
+  pinMode(buttonPin, INPUT);     // 设置 2 号引脚为 INPUT 输入模式，用于读取按钮状态
+  pinMode(ledPin, OUTPUT);       // 设置 13 号引脚为 OUTPUT 输出模式，用于控制 LED 亮灭
 }
 
-void loop() {
-  int buttonState = digitalRead(buttonPin);
-  if (buttonState == HIGH) {
-    digitalWrite(ledPin, HIGH);
-  } else {
-    digitalWrite(ledPin, LOW);
-  }
-}
+void loop() {                    // loop() 无限循环反复执行，是程序主体
+  int buttonState = digitalRead(buttonPin); // digitalRead(引脚)：读取 2 号按钮引脚的电平
+                                            // 返回 HIGH（按下，5V）或 LOW（松开，0V）
+                                            // 存入局部变量 buttonState，类型为 int
+  if (buttonState == HIGH) {     // 判断按钮是否被按下（读到高电平）
+                                 // == 是比较运算符，= 是赋值运算符，写法不同不要混淆
+    digitalWrite(ledPin, HIGH);  // 按钮按下 → 给 13 号引脚输出 HIGH，LED 点亮
+  } else {                       // else：上述条件不成立时执行（即按钮松开）
+    digitalWrite(ledPin, LOW);   // 按钮松开 → 给 13 号引脚输出 LOW，LED 熄灭
+  }                              // if-else 语句块结束
+}                                // loop() 结束，回到开头继续循环检测按钮
 ```
 
 ## 使用注意

@@ -3,21 +3,30 @@
 `analogRead(pin)` 读取模拟引脚的电压值，返回 `0` 到 `1023`。
 
 ```c
-int potPin = A0;
-int ledPin = 9;
+int potPin = A0;                 // 定义全局变量 potPin，电位器接在模拟引脚 A0
+                                 // 模拟引脚以 A 开头（A0~A5），专门读取连续变化的电压
+int ledPin = 9;                  // LED 接在 9 号 PWM 引脚（标有 ~），用于亮度调节
 
-void setup() {
-  pinMode(ledPin, OUTPUT);
-  Serial.begin(9600);
-}
+void setup() {                   // setup() 上电/复位后只执行 1 次，专门做初始化
+  pinMode(ledPin, OUTPUT);       // 设置 9 号引脚为 OUTPUT 输出模式（PWM 输出）
+  Serial.begin(9600);            // 开启硬件串口通信，波特率 9600
+                                 // 电脑串口监视器必须同步选 9600 才能看到数值
+}                                // 注意：模拟输入引脚（A0）不需要 pinMode() 设置
 
-void loop() {
-  int potValue = analogRead(potPin);
-  Serial.println(potValue);
+void loop() {                    // loop() 无限循环反复执行，是程序主体
+  int potValue = analogRead(potPin); // analogRead(模拟引脚)：读取 A0 的模拟电压值
+                                     // 返回 0~1023（0=0V，1023=5V）
+                                     // 存入局部变量 potValue，类型为 int
+  Serial.println(potValue);      // 通过串口向电脑打印电位器的值
+                                 // 可以在串口监视器中看到实时的数值变化
   int brightness = map(potValue, 0, 1023, 0, 255);
-  analogWrite(ledPin, brightness);
-  delay(100);
-}
+                                 // map(输入值, 输入最小值, 输入最大值, 输出最小值, 输出最大值)
+                                 // 把电位器值 0~1023 按比例映射到亮度值 0~255
+                                 // 存入局部变量 brightness
+  analogWrite(ledPin, brightness); // 用映射后的值控制 LED 亮度
+                                   // 旋动电位器 → LED 亮度随之变化
+  delay(100);                    // 暂停 100 毫秒，让读取和更新稳定，避免抖动
+}                                // loop() 结束，回到开头继续读取电位器
 ```
 
 ## 使用注意
