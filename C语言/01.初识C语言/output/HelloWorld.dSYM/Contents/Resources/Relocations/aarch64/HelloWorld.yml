@@ -1,5 +1,0 @@
----
-triple:          'arm64-apple-darwin'
-binary-path:     "/Users/yosenyin/Library/Mobile Documents/com~apple~CloudDocs/嵌入式学习/C-Arduino/C语言/01.初识C语言/output/HelloWorld"
-relocations:     []
-...
